@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini CodePen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .editor {
+            width: 50%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            width: 100%;
+            height: 90%;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .output {
+            width: 50%;
+            border-left: 2px solid #ccc;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========= CODE EDITOR ========= -->
+<div class="editor">
+    <h3>Write HTML / JS here</h3>
+    <textarea id="code">
+<h1>Hello Hacker 😎</h1>
+<p>Edit this code</p>
+<script>
+document.body.style.background = "#111";
+document.body.style.color = "lime";
+</script>
+    </textarea>
+    <button onclick="runCode()">Run Code ▶</button>
+</div>
+
+<!-- ========= OUTPUT ========= -->
+<div class="output">
+    <iframe id="result"></iframe>
+</div>
+
+<script>
+function runCode() {
+    const code = document.getElementById("code").value;
+    const iframe = document.getElementById("result");
+    iframe.srcdoc = code;
+}
+</script>
+
+</body>
+</html>

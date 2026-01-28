@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS 6 Projects Kit</title>
+
+<style>
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#141e30,#243b55);
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    padding:20px;
+}
+
+h1 { color:white; text-align:center; }
+
+.card {
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin:15px;
+    width:300px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.card h2 { color:#1d2671; margin-bottom:15px; }
+
+input, button, select {
+    padding:8px;
+    margin:5px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+button {
+    cursor:pointer;
+    border:none;
+    background:#1d2671;
+    color:white;
+    transition:0.3s;
+}
+
+button:hover { background:#c33764; }
+
+#result, #quizResult, #pwdResult, #colorResult, #calcResult, #bulbResult {
+    margin-top:10px; font-weight:bold;
+}
+
+/* Small responsive */
+@media(max-width:400px){ .card{ width:90%; } }
+</style>
+</head>
+<body>
+
+<h1>JS 6 Projects Kit</h1>
+
+<!-- 1️⃣ Bulb ON/OFF -->
+<div class="card">
+<h2>Bulb ON/OFF</h2>
+<img id="bulb" src="https://www.w3schools.com/js/pic_bulboff.gif" alt="bulb" width="100">
+<br>
+<button onclick="turnOn()">ON</button>
+<button onclick="turnOff()">OFF</button>
+</div>
+
+<!-- 2️⃣ Age Checker -->
+<div class="card">
+<h2>Age Checker</h2>
+<input type="text" id="name" placeholder="Name">
+<input type="number" id="age" placeholder="Age">
+<button onclick="checkAge()">Check</button>
+<div id="result"></div>
+</div>
+
+<!-- 3️⃣ Calculator -->
+<div class="card">
+<h2>Calculator</h2>
+<input type="number" id="num1" placeholder="Number 1">
+<input type="number" id="num2" placeholder="Number 2">
+<select id="op">
+<option value="+">+</option>
+<option value="-">-</option>
+<option value="*">*</option>
+<option value="/">/</option>
+</select>
+<br>
+<button onclick="calculate()">Calculate</button>
+<div id="calcResult"></div>
+</div>
+
+<!-- 4️⃣ Password Strength Checker -->
+<div class="card">
+<h2>Password Strength</h2>
+<input type="password" id="password" placeholder="Enter password">
+<button onclick="checkPassword()">Check</button>
+<div id="pwdResult"></div>
+</div>
+
+<!-- 5️⃣ Quiz Game -->
+<div class="card">
+<h2>Quiz</h2>
+<p>What is 2 + 2?</p>
+<select id="quiz">
+<option value="">Select</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+<br>
+<button onclick="checkQuiz()">Submit</button>
+<div id="quizResult"></div>
+</div>
+
+<!-- 6️⃣ Color Changer -->
+<div class="card">
+<h2>Color Changer</h2>
+<input type="color" id="colorPicker">
+<button onclick="changeColor()">Change Background</button>
+<div id="colorResult"></div>
+</div>
+
+<script>
+// 1️⃣ Bulb
+function turnOn(){ document.getElementById("bulb").src="https://www.w3schools.com/js/pic_bulbon.gif"; }
+function turnOff(){ document.getElementById("bulb").src="https://www.w3schools.com/js/pic_bulboff.gif"; }
+
+// 2️⃣ Age Checker
+function checkAge(){
+    let name=document.getElementById("name").value.trim();
+    let age=document.getElementById("age").value.trim();
+    if(!name || !age){ document.getElementById("result").innerHTML="⚠️ Fill all fields"; document.getElementById("result").style.color="red"; return; }
+    age=Number(age);
+    let status=(age<18)?"Minor":"Adult";
+    let color=(age<18)?"orange":"green";
+    document.getElementById("result").innerHTML=`Hello ${name}! You are a ${status}.`;
+    document.getElementById("result").style.color=color;
+}
+
+// 3️⃣ Calculator
+function calculate(){
+    let n1=Number(document.getElementById("num1").value);
+    let n2=Number(document.getElementById("num2").value);
+    let op=document.getElementById("op").value;
+    let res;
+    switch(op){
+        case '+': res=n1+n2; break;
+        case '-': res=n1-n2; break;
+        case '*': res=n1*n2; break;
+        case '/': res=(n2!==0)? n1/n2 : "Error: Divide by 0"; break;
+    }
+    document.getElementById("calcResult").innerHTML=`Result: ${res}`;
+}
+
+// 4️⃣ Password Strength
+function checkPassword(){
+    let pwd=document.getElementById("password").value;
+    let res="Weak";
+    let color="red";
+    if(pwd.length>=8 && /[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) { res="Strong"; color="green"; }
+    else if(pwd.length>=6){ res="Medium"; color="orange"; }
+    document.getElementById("pwdResult").innerHTML=`Password Strength: ${res}`;
+    document.getElementById("pwdResult").style.color=color;
+}
+
+// 5️⃣ Quiz
+function checkQuiz(){
+    let ans=document.getElementById("quiz").value;
+    if(ans==="4"){ document.getElementById("quizResult").innerHTML="Correct! 🎉"; document.getElementById("quizResult").style.color="green"; }
+    else{ document.getElementById("quizResult").innerHTML="Wrong! ❌"; document.getElementById("quizResult").style.color="red"; }
+}
+
+// 6️⃣ Color Changer
+function changeColor(){
+    let color=document.getElementById("colorPicker").value;
+    document.body.style.background=color;
+    document.getElementById("colorResult").innerHTML=`Background changed to ${color}`;
+}
+</script>
+
+</body>
+</html>
